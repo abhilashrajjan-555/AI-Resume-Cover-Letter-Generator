@@ -1,0 +1,19 @@
+{
+  "name": "codex-resume-coverletter-generator",
+  "version": "1.0.0",
+  "description": "Generate tailored resume and cover letter PDFs from user experience and desired role.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "openai": "^4.86.1",
+    "pdfkit": "^0.15.2"
+  }
+}

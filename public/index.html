@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume + Cover Letter Generator</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <h1>AI Resume + Cover Letter Generator</h1>
+        <p class="subtitle">
+          Enter your background and target role. Codex will generate tailored PDFs for both documents.
+        </p>
+
+        <form id="generator-form">
+          <label>
+            Full Name *
+            <input type="text" name="fullName" required />
+          </label>
+
+          <label>
+            Desired Role *
+            <input type="text" name="desiredRole" required />
+          </label>
+
+          <label>
+            Experience Summary *
+            <textarea
+              name="experienceSummary"
+              rows="4"
+              required
+              placeholder="Summarize your years of experience, specialties, and impact."
+            ></textarea>
+          </label>
+
+          <label>
+            Previous Roles
+            <textarea
+              name="previousRoles"
+              rows="3"
+              placeholder="Example: Senior Product Manager at Acme (2022-2025), Product Analyst at Beta (2019-2022)"
+            ></textarea>
+          </label>
+
+          <label>
+            Skills
+            <textarea
+              name="skills"
+              rows="3"
+              placeholder="Example: SQL, Python, stakeholder management, A/B testing, roadmap planning"
+            ></textarea>
+          </label>
+
+          <label>
+            Education
+            <textarea
+              name="education"
+              rows="2"
+              placeholder="Example: B.S. Computer Science, University of ..."
+            ></textarea>
+          </label>
+
+          <label>
+            Key Achievements
+            <textarea
+              name="achievements"
+              rows="3"
+              placeholder="Example: Improved conversion by 18%, led migration saving $250K/year."
+            ></textarea>
+          </label>
+
+          <label>
+            Target Company
+            <input type="text" name="targetCompany" placeholder="Optional" />
+          </label>
+
+          <button type="submit" id="submit-btn">Generate PDFs</button>
+          <p class="status" id="status"></p>
+        </form>
+      </section>
+
+      <section class="panel hidden" id="result-panel">
+        <h2>Generated Documents</h2>
+        <div class="actions">
+          <button id="download-resume" type="button">Download Resume PDF</button>
+          <button id="download-cover" type="button">Download Cover Letter PDF</button>
+        </div>
+
+        <h3>Resume Preview</h3>
+        <pre id="resume-preview"></pre>
+
+        <h3>Cover Letter Preview</h3>
+        <pre id="cover-preview"></pre>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+  </html>
