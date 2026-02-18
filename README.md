@@ -2,6 +2,9 @@
 
 Generate tailored, ATS-friendly job documents from a simple form.
 
+## About
+AI Resume & Cover Letter Generator helps job seekers create role-specific application documents in minutes. Users provide their experience, target role, and key qualifications, and the app generates a polished resume and matching cover letter that can be downloaded as PDFs.
+
 Users enter:
 - Experience summary
 - Desired role
