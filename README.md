@@ -81,3 +81,6 @@ Optional fallback:
 - `.env` and `.env.*` are git-ignored.
 - `.env.example` is the only environment template tracked in git.
 - Never commit real API keys.
+- API requests are rate-limited (`30 requests / 15 minutes / IP`).
+- Security headers are enabled via `helmet`.
+- Server responses avoid leaking raw provider/internal errors.

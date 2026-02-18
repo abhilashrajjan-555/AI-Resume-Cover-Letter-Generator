@@ -80,7 +80,7 @@ Return output in this exact format:
 function extractOutputText(response) {
   const raw = response?.choices?.[0]?.message?.content;
   if (typeof raw === "string" && raw.trim()) {
-    return raw;
+    return raw.trim();
   }
 
   if (Array.isArray(raw)) {
@@ -102,8 +102,12 @@ function extractOutputText(response) {
 }
 
 function parseTaggedSections(rawText) {
-  const resumeMatch = rawText.match(/<resume>([\s\S]*?)<\/resume>/i);
-  const coverLetterMatch = rawText.match(
+  const cleaned = rawText
+    .replace(/^```[a-zA-Z]*\n?/g, "")
+    .replace(/\n?```$/g, "")
+    .trim();
+  const resumeMatch = cleaned.match(/<resume>([\s\S]*?)<\/resume>/i);
+  const coverLetterMatch = cleaned.match(
     /<cover_letter>([\s\S]*?)<\/cover_letter>/i
   );
 
@@ -156,6 +160,7 @@ async function generateDocuments(userInput) {
   const response = await client.chat.completions.create({
     model,
     temperature: 0.4,
+    max_tokens: 2200,
     messages: [
       {
         role: "system",

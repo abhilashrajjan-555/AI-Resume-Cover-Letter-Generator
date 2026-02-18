@@ -51,9 +51,13 @@ form.addEventListener("submit", async (event) => {
       body: JSON.stringify(payload)
     });
 
-    const data = await response.json();
+    const isJson = (response.headers.get("content-type") || "").includes(
+      "application/json"
+    );
+    const data = isJson ? await response.json() : { error: await response.text() };
     if (!response.ok) {
-      throw new Error(data.error || "Failed to generate documents.");
+      const suffix = data.requestId ? ` (Ref: ${data.requestId})` : "";
+      throw new Error((data.error || "Failed to generate documents.") + suffix);
     }
 
     generated = data;
