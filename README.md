@@ -1,89 +1,148 @@
 # AI Resume & Cover Letter Generator
 
-Generate tailored, ATS-friendly job documents from a simple form.
+[![Node.js >=18](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-## About
-AI Resume & Cover Letter Generator helps job seekers create role-specific application documents in minutes. Users provide their experience, target role, and key qualifications, and the app generates a polished resume and matching cover letter that can be downloaded as PDFs.
+Generate ATS-friendly, role-tailored resumes and cover letters from one structured form, then export both as PDFs.
 
-Users enter:
-- Experience summary
-- Desired role
-- Skills, past roles, education, achievements
-- Optional target company
+## Why This Project
 
-The app returns:
-- Tailored resume text + downloadable PDF
-- Tailored cover letter text + downloadable PDF
+This application is designed as a practical full-stack tool for job seekers:
 
-## Features
-- Fast web form UI for candidate details
-- AI-generated resume and cover letter with role-specific tailoring
-- Automatic PDF rendering for both documents
-- Browser download buttons for generated files
-- OpenRouter-first configuration with optional OpenAI fallback
+- Collects candidate background via a simple web interface
+- Produces targeted resume and cover letter text using an LLM
+- Generates downloadable PDF documents server-side
+- Supports OpenRouter-first configuration with OpenAI fallback
+
+## Core Features
+
+- Single-submit workflow for both documents
+- Clean JSON API (`POST /api/generate-documents`)
+- PDF export with user-friendly file naming
+- Input normalization and required-field validation
+- Rate limiting and security headers enabled by default
+- Request ID returned on errors for easier troubleshooting
 
 ## Tech Stack
-- Node.js + Express
-- `openai` SDK (OpenAI-compatible, configured for OpenRouter)
-- PDFKit for server-side PDF generation
-- Vanilla HTML/CSS/JS frontend
+
+- Backend: Node.js, Express
+- AI integration: `openai` SDK (OpenAI-compatible; supports OpenRouter)
+- Document rendering: PDFKit
+- Frontend: Vanilla HTML, CSS, and JavaScript
+- Security middleware: Helmet + `express-rate-limit`
 
 ## Project Structure
+
 ```text
-src/
-  server.js
-  services/documentService.js
-public/
-  index.html
-  app.js
-  styles.css
+.
+|-- public/
+|   |-- index.html
+|   |-- app.js
+|   `-- styles.css
+|-- src/
+|   |-- server.js
+|   `-- services/
+|       `-- documentService.js
+|-- .env.example
+`-- README.md
 ```
 
-## Setup
+## Quick Start
+
 1. Install dependencies:
    ```bash
    npm install
    ```
-2. Create your environment file:
+2. Create environment file:
    ```bash
    cp .env.example .env
    ```
-3. Add your OpenRouter API key in `.env`.
+3. Add your API key(s) in `.env`:
+   - `OPENROUTER_API_KEY` (recommended), or
+   - `OPENAI_API_KEY` (fallback provider)
 4. Start the server:
    ```bash
    npm start
    ```
-5. Open [http://localhost:3000](http://localhost:3000)
+5. Open `http://localhost:3000`
 
 ## Environment Variables
-- `OPENROUTER_API_KEY`: required for OpenRouter usage
-- `OPENROUTER_BASE_URL`: default `https://openrouter.ai/api/v1`
-- `OPENROUTER_MODEL`: example `openai/gpt-4o-mini`
-- `OPENROUTER_SITE_URL`: optional referer header
-- `OPENROUTER_APP_NAME`: optional app name header
-- `PORT`: default `3000`
 
-Optional fallback:
+Required (choose one provider):
+
+- `OPENROUTER_API_KEY`
 - `OPENAI_API_KEY`
+
+Optional:
+
+- `OPENROUTER_BASE_URL` (default: `https://openrouter.ai/api/v1`)
+- `OPENROUTER_MODEL` (example: `openai/gpt-4o-mini`)
+- `OPENROUTER_SITE_URL`
+- `OPENROUTER_APP_NAME`
 - `OPENAI_MODEL`
+- `PORT` (default: `3000`)
 
-## API
-- `POST /api/generate-documents`
-  - Required fields:
-    - `fullName`
-    - `desiredRole`
-    - `experienceSummary`
-  - Returns:
-    - `resumeText`
-    - `coverLetterText`
-    - `resumePdfBase64`
-    - `coverLetterPdfBase64`
-    - file names for both PDFs
+## API Contract
 
-## Security
-- `.env` and `.env.*` are git-ignored.
-- `.env.example` is the only environment template tracked in git.
-- Never commit real API keys.
-- API requests are rate-limited (`30 requests / 15 minutes / IP`).
-- Security headers are enabled via `helmet`.
-- Server responses avoid leaking raw provider/internal errors.
+### `POST /api/generate-documents`
+
+Request body (minimum required fields):
+
+```json
+{
+  "fullName": "Jane Doe",
+  "desiredRole": "Software Engineer",
+  "experienceSummary": "5 years building full-stack applications"
+}
+```
+
+Successful response includes:
+
+- `resumeText`
+- `coverLetterText`
+- `resumePdfBase64`
+- `coverLetterPdfBase64`
+- `resumeFileName`
+- `coverLetterFileName`
+- `provider`
+- `model`
+
+## Quality Checks
+
+Run local quality checks:
+
+```bash
+npm run check
+```
+
+Run test command (currently mapped to syntax checks):
+
+```bash
+npm test
+```
+
+## Security Notes
+
+- `.env` files are ignored by git
+- API requests are rate-limited (`30 req / 15 min / IP`)
+- Security headers are set through Helmet
+- Provider/internal errors are sanitized before returning to clients
+
+## Professional Repository Standards
+
+This repository includes:
+
+- `LICENSE` (MIT)
+- `CONTRIBUTING.md`
+- `SECURITY.md`
+- GitHub Actions CI workflow
+
+## Roadmap
+
+- Add unit/integration tests for prompt parsing and API validation
+- Add Docker support for one-command deployment
+- Add persistent template presets for different career tracks
+
+## License
+
+Released under the MIT License. See [LICENSE](./LICENSE).

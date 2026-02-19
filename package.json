@@ -1,12 +1,31 @@
 {
   "name": "codex-resume-coverletter-generator",
   "version": "1.0.0",
-  "description": "Generate tailored resume and cover letter PDFs from user experience and desired role.",
+  "description": "Generate tailored, ATS-friendly resume and cover letter PDFs from structured candidate input.",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "check": "node --check src/server.js && node --check src/services/documentService.js && node --check public/app.js",
+    "test": "npm run check"
   },
+  "keywords": [
+    "resume",
+    "cover-letter",
+    "express",
+    "openai",
+    "openrouter",
+    "pdf"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhilashrajjan-555/AI-Resume-Cover-Letter-Generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abhilashrajjan-555/AI-Resume-Cover-Letter-Generator/issues"
+  },
+  "homepage": "https://github.com/abhilashrajjan-555/AI-Resume-Cover-Letter-Generator#readme",
   "engines": {
     "node": ">=18"
   },
