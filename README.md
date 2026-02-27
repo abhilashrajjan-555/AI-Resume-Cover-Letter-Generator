@@ -3,33 +3,32 @@
 [![Node.js >=18](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-Generate ATS-friendly, role-tailored resumes and cover letters from one structured form, then export both as PDFs.
+Generate ATS-friendly, role-targeted resumes and cover letters from one structured input form, then export both as PDFs.
 
-## Why This Project
+## Overview
 
-This application is designed as a practical full-stack tool for job seekers:
+This project is a practical AI workflow for job-application document generation.
 
-- Collects candidate background via a simple web interface
-- Produces targeted resume and cover letter text using an LLM
-- Generates downloadable PDF documents server-side
-- Supports OpenRouter-first configuration with OpenAI fallback
+- Accepts candidate and role context from a single web form
+- Generates both resume and cover letter text in one request
+- Exports downloadable PDF files server-side
+- Supports OpenRouter (recommended) and OpenAI-compatible configuration
 
-## Core Features
+## Key Features
 
-- Single-submit workflow for both documents
-- Clean JSON API (`POST /api/generate-documents`)
-- PDF export with user-friendly file naming
-- Input normalization and required-field validation
-- Rate limiting and security headers enabled by default
-- Request ID returned on errors for easier troubleshooting
+- Single API endpoint for end-to-end document generation
+- Input validation and normalization for cleaner output
+- PDF generation with safe file naming
+- Built-in security defaults (Helmet + rate limiting)
+- Structured error responses with request IDs for debugging
 
 ## Tech Stack
 
 - Backend: Node.js, Express
-- AI integration: `openai` SDK (OpenAI-compatible; supports OpenRouter)
-- Document rendering: PDFKit
-- Frontend: Vanilla HTML, CSS, and JavaScript
-- Security middleware: Helmet + `express-rate-limit`
+- AI: `openai` SDK with OpenRouter/OpenAI-compatible providers
+- PDF Rendering: PDFKit
+- Frontend: Vanilla HTML/CSS/JavaScript
+- Security: Helmet, express-rate-limit
 
 ## Project Structure
 
@@ -53,22 +52,22 @@ This application is designed as a practical full-stack tool for job seekers:
    ```bash
    npm install
    ```
-2. Create environment file:
+2. Configure environment:
    ```bash
    cp .env.example .env
    ```
-3. Add your API key(s) in `.env`:
+3. Add one provider key in `.env`:
    - `OPENROUTER_API_KEY` (recommended), or
-   - `OPENAI_API_KEY` (fallback provider)
-4. Start the server:
+   - `OPENAI_API_KEY`
+4. Run the app:
    ```bash
    npm start
    ```
-5. Open `http://localhost:3000`
+5. Open [http://localhost:3000](http://localhost:3000)
 
 ## Environment Variables
 
-Required (choose one provider):
+Required (at least one):
 
 - `OPENROUTER_API_KEY`
 - `OPENAI_API_KEY`
@@ -82,21 +81,21 @@ Optional:
 - `OPENAI_MODEL`
 - `PORT` (default: `3000`)
 
-## API Contract
+## API
 
 ### `POST /api/generate-documents`
 
-Request body (minimum required fields):
+Minimal request body:
 
 ```json
 {
   "fullName": "Jane Doe",
   "desiredRole": "Software Engineer",
-  "experienceSummary": "5 years building full-stack applications"
+  "experienceSummary": "5 years building web applications"
 }
 ```
 
-Successful response includes:
+Success response includes:
 
 - `resumeText`
 - `coverLetterText`
@@ -107,42 +106,27 @@ Successful response includes:
 - `provider`
 - `model`
 
-## Quality Checks
-
-Run local quality checks:
+## Development Checks
 
 ```bash
 npm run check
-```
-
-Run test command (currently mapped to syntax checks):
-
-```bash
 npm test
 ```
 
 ## Security Notes
 
-- `.env` files are ignored by git
-- API requests are rate-limited (`30 req / 15 min / IP`)
-- Security headers are set through Helmet
+- Secrets are loaded from environment variables
+- Requests are rate-limited (`30 requests / 15 minutes / IP`)
+- Security headers are enabled with Helmet
 - Provider/internal errors are sanitized before returning to clients
 
-## Professional Repository Standards
-
-This repository includes:
+## Repository Standards
 
 - `LICENSE` (MIT)
 - `CONTRIBUTING.md`
 - `SECURITY.md`
 - GitHub Actions CI workflow
 
-## Roadmap
-
-- Add unit/integration tests for prompt parsing and API validation
-- Add Docker support for one-command deployment
-- Add persistent template presets for different career tracks
-
 ## License
 
-Released under the MIT License. See [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).
