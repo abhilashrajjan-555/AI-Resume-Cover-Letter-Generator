@@ -14,6 +14,14 @@ This project is a practical AI workflow for job-application document generation.
 - Exports downloadable PDF files server-side
 - Supports OpenRouter (recommended) and OpenAI-compatible configuration
 
+## Problem
+
+Job seekers often rewrite the same resume and cover letter for every role. That creates two problems: the documents become generic, or the process takes too long to repeat consistently.
+
+## Solution
+
+The app collects candidate context and target role details once, then generates a tailored resume and cover letter pair with downloadable PDF output. It keeps the workflow narrow: one form, one generation request, two usable documents.
+
 ## Key Features
 
 - Single API endpoint for end-to-end document generation
@@ -29,6 +37,14 @@ This project is a practical AI workflow for job-application document generation.
 - PDF Rendering: PDFKit
 - Frontend: Vanilla HTML/CSS/JavaScript
 - Security: Helmet, express-rate-limit
+
+## What This Shows
+
+- Practical AI product workflow from input to generated output
+- Server-side PDF generation
+- Provider-flexible AI configuration
+- Basic security defaults for a public-facing Express app
+- Clear API contract for document generation
 
 ## Project Structure
 
